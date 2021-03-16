@@ -52,24 +52,26 @@ class ModbusDevice:
             print(f"Device with {self.ip} is offline")
             return False
 
-    def modbus_read(self, register=2):
+    def modbus_read(self, register=1):
+        """ Функция чтения входного регистра
 
-        config = configparser.ConfigParser()
-        config.read("D:/Diploma/Detection/settings.ini")
+        """
 
         try:
-            client = ModbusTcpClient(config["MODBUS"]["IP"], config["MODBUS"]["PORT"])
+            result = self.client.read_discrete_inputs(int(register), 1)
 
-            result = client.read_discrete_inputs(register, 8)
-            print(result.bits)
-            client.close()
+            if result.bits[0]:
+                return True
+            else:
+                return False
+
         except ModbusException:
             print('No connection')
 
-        return True
+
 
     # TODO: modbus_plant_watering - сделать через TRY подключение к контроллеру, как в проверке соединения
-    def modbus_plant_watering(watering_zone=1, watering_volume=10):
+    def modbus_plant_watering(self, watering_zone=1, watering_volume=10):
         """ Implementation of a modbus watering
 
         :param watering_zone: Zone of watering 1 - Low, 2 - Middle, 3 - High (default 1-Low)
