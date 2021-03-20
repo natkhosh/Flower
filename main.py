@@ -1,10 +1,11 @@
 from Camera.camera_onvif import *
 from Modbus.modbus import *
+from Detector.detector import *
 import configparser
 import time
 
 
-def main():
+def main_():
 
     # IP адреса устройств, к которым будем подключаться беруться из файла настроек
     config = configparser.ConfigParser()
@@ -34,6 +35,17 @@ def main():
             time.sleep(10)
 
     device.modbus_disconnect()
+    return
+
+
+def main():
+
+    # 'D:/Diploma/Detection/Detector/model.pth'
+    detector = Detector("D:/Diploma/Detection/Detector/model_all.pth")
+    img_class = detector.predict("D:/Diploma/Detection/Pic/Image05.jpg")
+
+    print(img_class)
+
     return
 
 
