@@ -8,10 +8,13 @@ class Detector:
 
     """
     def __init__(self, model_path="", classes=['Ficus', 'Unknown', 'Saintpaulia', 'Phalaenopsis']):
+        """
+
+        :param model_path: путь к сохраненной модели
+        :param classes: классы растений из обученного датасета
+        """
         self.model_path = model_path
         self.classes = classes
-        # self.model = tv.models.
-        # self.model.load_state_dict(torch.load(self.model_path))
         self.model = torch.load(model_path, map_location=torch.device('cpu'))
         self.model.eval()
 
@@ -42,9 +45,7 @@ class Detector:
         with open(image_path, 'rb') as f:
             img = Image.open(f)
             img.convert('RGB')
-
         image = self.image_transform(img)
-
         xb = image.unsqueeze(0)
 
         # Получаем предсказание класса растения от модели
@@ -54,7 +55,7 @@ class Detector:
         _, preds = torch.max(yb, dim=1)
         value = torch.max(yb, dim=1)
 
-        # Если коэффициент предсказания меньше 3, то считаем, что мы не угадали и даем класс "Unknown"
+        # Если коэффициент предсказания меньше 3, то считаем, что модель не угадала и даем класс "Unknown"
         if value[0].item() > 3:
             # Retrieve the class label
             return self.classes[preds[0].item()]
