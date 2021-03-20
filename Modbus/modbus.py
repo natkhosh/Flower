@@ -27,7 +27,10 @@ class ModbusDevice:
         self.client = ModbusTcpClient(self.ip, self.port)
 
     def modbus_disconnect(self):
-        # закрытие соединения
+        """
+        Функция закрытие соединения
+
+        """
         self.client.close()
         return
 
@@ -69,8 +72,8 @@ class ModbusDevice:
             print('No connection')
 
 
-
     # TODO: modbus_plant_watering - сделать через TRY подключение к контроллеру, как в проверке соединения
+
     def modbus_plant_watering(self, watering_zone=1, watering_volume=10):
         """ Implementation of a modbus watering
 

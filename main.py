@@ -8,6 +8,7 @@ def main():
 
     # IP адреса устройств, к которым будем подключаться беруться из файла настроек
     config = configparser.ConfigParser()
+    # TODO: сделать нормальные относительные пути
     config.read("D:/Diploma/Detection/settings.ini")
 
     # создаем экземляры наших устройств
