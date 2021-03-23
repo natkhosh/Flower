@@ -54,7 +54,6 @@ class Camera:
             if response.status_code == 200:
                 print(f"Camera with {self.ip} is online.")
             return True
-
         except requests.ConnectionError:
             print(f"Camera with {self.ip} is offline")
             return False
@@ -65,10 +64,8 @@ class Camera:
         """
 
         file_snapshot_name = set_snapshot_name()
-
         url = 'http://' + self.ip + '/jpeg/jpeg.jpg'
-
         r = requests.get(url)
-
         with open(self.data_dir + '\\' + file_snapshot_name, 'wb') as f:
             f.write(r.content)
+        return file_snapshot_name

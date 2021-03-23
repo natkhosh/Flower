@@ -9,7 +9,7 @@ class Detector:
     """
     def __init__(self, model_path="", classes=['Ficus', 'Unknown', 'Saintpaulia', 'Phalaenopsis']):
         """
-
+        Конструктор класса Detector
         :param model_path: путь к сохраненной модели
         :param classes: классы растений из обученного датасета
         """

@@ -31,13 +31,6 @@ class ModbusDevice:
         except ModbusException as e:
             print(f"Device with {self.ip} is offline")
 
-    def modbus_disconnect(self):
-        """ Функция закрытия соединения
-
-        """
-        self.client.close()
-        return
-
     @property
     def modbus_check_connection(self):
         """ Функция проверки соединения
@@ -51,10 +44,18 @@ class ModbusDevice:
         try:
             result = self.client.read_coils(1, 1)
             print(f"Device with {self.ip} is online. Coil 1 status {result}")
+            self.modbus_disconnect()
             return True
         except ModbusException:
             print(f"Device with {self.ip} is offline")
             return False
+
+    def modbus_disconnect(self):
+        """ Функция закрытия соединения
+
+        """
+        self.client.close()
+        return True
 
     def modbus_read(self, register=1):
         """ Функция чтения входного регистра
@@ -92,6 +93,7 @@ class ModbusDevice:
         # отправляем объем полива
         self.client.write_register(int(config["MODBUS"]["VOLUME"]), watering_volume)
 
+        # TODO: надо проверить, надо в глобальном цикле использовать эту функцию
         # закрываем соединение с контроллером
         self.modbus_disconnect()
 

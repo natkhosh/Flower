@@ -10,14 +10,14 @@ class DB:
 
         :return: Возвращает "соединение"
         """
-        c_connection = None
+        sqlite_connection = None
         try:
-            c_connection = sqlite3.connect(self.db_path)
+            sqlite_connection = sqlite3.connect(self.db_path)
             print("Connection to SQLite DB successful")
         except sqlite3.Error as e:
             print(f"The error '{e}' occurred")
 
-        return c_connection
+        return sqlite_connection
 
     @staticmethod
     def execute_read_query(connection, query):
@@ -32,7 +32,30 @@ class DB:
         try:
             cursor.execute(query)
             result = cursor.fetchall()
+            cursor.close()
             return result
         except sqlite3.Error as e:
             print(f"The error '{e}' occurred")
+
+    @staticmethod
+    def execute_write_query(connection, query):
+        """
+        Запись данных в базу данных
+        :param connection: Принимает "соединение"
+        :param query: Запрос в формате SQL
+        """
+        try:
+            cursor = connection.cursor()
+            print("Подключен к SQLite")
+
+            cursor.execute(query)
+            connection.commit()
+            print("Запись успешно вставлена ​​в таблицу ", cursor.rowcount)
+            cursor.close()
+        except sqlite3.Error as error:
+            print("Ошибка при работе с SQLite", error)
+        finally:
+            if connection:
+                connection.close()
+                print("Соединение с SQLite закрыто")
 
