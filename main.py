@@ -7,7 +7,6 @@ import time
 
 
 def main():
-
     # IP адреса устройств, к которым будем подключаться беруться из файла настроек
     config = configparser.ConfigParser()
     # TODO: сделать нормальные относительные пути
@@ -19,8 +18,9 @@ def main():
     device = ModbusDevice(config["MODBUS"]["IP"])
     detector = Detector("D:/Diploma/Detection/Detector/model_all.pth")
 
+    # Проверка соединений
     if cam.check_connection & device.modbus_check_connection:
-        print("all ok")
+        print("Camera and device connection created.")
 
     # отслеживаем изменение состояние входа
     trigger = False
@@ -64,6 +64,16 @@ def main():
             db.execute_write_query(db_connection, db_query_camera)
 
             # добавить полив
+            if watering_point_fact == "Дождевание":
+                watering_zone = 1
+            elif watering_point_fact == "Дождевание":
+                watering_zone = 2
+            elif watering_point_fact == "Дождевание":
+                watering_zone = 3
+            else:
+                watering_zone = 0
+
+            watering_result = device.modbus_plant_watering(watering_zone, watering_volume_fact)
 
             # Получаем время операции для журнала
             ts = datetime.datetime.now()
@@ -92,7 +102,8 @@ def main():
                                + str(store_position_id) + "', '" \
                                + str(watering_point_fact) + "')"
 
-            db.execute_write_query(db_connection, db_query_journal)
+            if watering_result:
+                db.execute_write_query(db_connection, db_query_journal)
 
             db_connection.close()
 
@@ -101,31 +112,9 @@ def main():
         elif not input_state:
             trigger = input_state
 
-        time.sleep(15)
+        time.sleep(5)
 
     device.modbus_disconnect()
-    return
-
-
-def main_test_det():
-
-    detector = Detector("D:/Diploma/Detection/Detector/model_all.pth")
-    img_class = detector.predict("D:/Diploma/Detection/Pic/Image05.jpg")
-    print(img_class)
-
-    return
-
-
-def main_():
-    db = DB('db.sqlite3')
-    db_connection = db.create_connection()
-    db_query = "INSERT INTO flower_camera ('class_name_id' , 'store_position_id', 'image') VALUES ('Unknown' ,'A3', 'D:\\Diploma\\Flower_01\\flower\\static\\uploads\\2021-3-22-1-58-15.jpg')"
-    # db_query = "SELECT * FROM flower_camera"
-    db_result = db.execute_read_query(db_connection, db_query)
-
-    db_connection.close()
-    print(db_result)
-
     return
 
 

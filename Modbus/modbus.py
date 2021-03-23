@@ -93,7 +93,6 @@ class ModbusDevice:
         # отправляем объем полива
         self.client.write_register(int(config["MODBUS"]["VOLUME"]), watering_volume)
 
-        # TODO: надо проверить, надо в глобальном цикле использовать эту функцию
         # закрываем соединение с контроллером
         self.modbus_disconnect()
 

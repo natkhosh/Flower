@@ -10,7 +10,6 @@ def set_snapshot_name():
     """ Функция создания имени файла
     Генерирует имя файл из текущей даты и времени
     """
-    # TODO: оформить парсинг в красивом виде
 
     ts = datetime.datetime.now()
     file_name = str(ts.year) + \

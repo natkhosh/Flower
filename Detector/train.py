@@ -9,9 +9,9 @@ Original file is located at
 Уставнока библиотек
 """
 
-pip install yadisk --quiet
+#pip install yadisk --quiet
 
-pip install livelossplot --quiet
+#pip install livelossplot --quiet
 
 # Commented out IPython magic to ensure Python compatibility.
 # Импорт необходимых библиотек
@@ -43,7 +43,7 @@ y = yadisk.YaDisk(token=token_ya)
 print("Downloading", dataset_file, 'from Yandex.Disk')
 y.download('/'+ dataset_file, dataset_file)
 print("Unpacking", dataset_file, "...")
-!unzip -q Dataset.zip
+#!unzip -q Dataset.zip
 print("Deleting", dataset_file, "...")
 if os.path.isfile(dataset_file):
     os.remove(dataset_file)
