@@ -55,8 +55,8 @@ class Detector:
         _, preds = torch.max(yb, dim=1)
         value = torch.max(yb, dim=1)
 
-        # Если коэффициент предсказания меньше 3, то считаем, что модель не угадала и даем класс "Unknown"
-        if value[0].item() > 3:
+        # Если коэффициент предсказания меньше 0, то считаем, что модель не угадала и даем класс "Unknown"
+        if value[0].item() > 0:
             # Retrieve the class label
             return self.classes[preds[0].item()]
         else:

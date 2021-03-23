@@ -54,8 +54,4 @@ class DB:
             cursor.close()
         except sqlite3.Error as error:
             print("Ошибка при работе с SQLite", error)
-        finally:
-            if connection:
-                connection.close()
-                print("Соединение с SQLite закрыто")
 
