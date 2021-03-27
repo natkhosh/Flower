@@ -16,7 +16,7 @@ def main():
     db = DB('D:/Diploma/Flower_01/db.sqlite3')
     cam = Camera(config["CAMERA"]["IP"])
     device = ModbusDevice(config["MODBUS"]["IP"])
-    detector = Detector("D:/Diploma/Detection/Detector/model_all.pth")
+    detector = Detector("D:/Diploma/Detection/Detector/model_all_v1.pth")
 
     # Проверка соединений
     if cam.check_connection & device.modbus_check_connection:
@@ -28,11 +28,10 @@ def main():
     store_position_id = 1
 
     while True:
-        system_stop = device.modbus_read(config["MODBUS"]["DI2"])
-        input_state = device.modbus_read(config["MODBUS"]["DI1"])
-
+        system_stop = device.modbus_read(config["MODBUS"]["DI1"])
+        input_state = device.modbus_read(config["MODBUS"]["DI2"])
         # Если подана команда на остановку (2 регистр в ON) выходим из цикла и завершаем программу
-        if system_stop:
+        if not system_stop:
             break
 
         elif input_state & (input_state != trigger):
@@ -66,15 +65,15 @@ def main():
             # добавить полив
             if watering_point_fact == "Дождевание":
                 watering_zone = 1
-            elif watering_point_fact == "Дождевание":
+            elif watering_point_fact == "Капельное орошение":
                 watering_zone = 2
-            elif watering_point_fact == "Дождевание":
+            elif watering_point_fact == "Поверхностное орошение":
                 watering_zone = 3
             else:
                 watering_zone = 0
 
             watering_result = device.modbus_plant_watering(watering_zone, watering_volume_fact)
-
+            print('WZ: ', watering_zone, ' WV: ', watering_volume_fact)
             # Получаем время операции для журнала
             ts = datetime.datetime.now()
             timestamp = str(ts.year) + \
@@ -103,7 +102,8 @@ def main():
                                + str(watering_point_fact) + "')"
 
             if watering_result:
-                db.execute_write_query(db_connection, db_query_journal)
+                res = db.execute_write_query(db_connection, db_query_journal)
+                print(res)
 
             db_connection.close()
 

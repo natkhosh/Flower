@@ -1,6 +1,8 @@
 # версия от 20.02.2021
 
 import configparser
+import time
+
 from pymodbus.client.sync import ModbusTcpClient
 from pymodbus.exceptions import ModbusException
 
@@ -82,13 +84,18 @@ class ModbusDevice:
         config = configparser.ConfigParser()
         config.read('D:/Diploma/Detection/settings.ini')
 
-        # по умолчанию в settings.ini реле N6 параметр 125 - оно в программе контроллера управляемое по сети
         if watering_zone == 1:
             self.client.write_coil(int(config["MODBUS"]["ZONE_LOW"]), True)
+            time.sleep(5)
+            self.client.write_coil(int(config["MODBUS"]["ZONE_LOW"]), False)
         elif watering_zone == 2:
             self.client.write_coil(int(config["MODBUS"]["ZONE_MID"]), True)
+            time.sleep(5)
+            self.client.write_coil(int(config["MODBUS"]["ZONE_MID"]), False)
         elif watering_zone == 3:
             self.client.write_coil(int(config["MODBUS"]["ZONE_HIGH"]), True)
+            time.sleep(5)
+            self.client.write_coil(int(config["MODBUS"]["ZONE_HIGH"]), False)
 
         # отправляем объем полива
         self.client.write_register(int(config["MODBUS"]["VOLUME"]), watering_volume)

@@ -29,7 +29,6 @@ def set_snapshot_name():
 
 class Camera:
     """ Базовый класс для камер
-
     :param ip: IP адрес камеры (default 192.168.0.20)
     """
 
@@ -46,7 +45,6 @@ class Camera:
     @property
     def check_connection(self):
         """ Функция проверки соединения
-
         """
         try:
             response = requests.get("http://" + self.ip)

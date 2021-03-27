@@ -7,7 +7,7 @@ class Detector:
     """ Базовый класс для детектора
 
     """
-    def __init__(self, model_path="", classes=['Ficus', 'Unknown', 'Saintpaulia', 'Phalaenopsis']):
+    def __init__(self, model_path="", classes=['Unknown', 'Ficus', 'Saintpaulia', 'Phalaenopsis']):
         """
         Конструктор класса Detector
         :param model_path: путь к сохраненной модели
