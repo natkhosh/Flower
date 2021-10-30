@@ -1,4 +1,4 @@
-# Flower
+# Intelligent_irrigation_system
 _**Python Diploma Project**_
 
 Данный прект посвящен созданию прототипа модуля управления интеллектуальной системы капельного полива.
