@@ -18,8 +18,7 @@ _**Python Diploma Project**_
 
 Взаимодействие с этими системами осуществляется через соответствующие API.
 
-
-![image](https://user-images.githubusercontent.com/56446265/117116574-31141a00-ad97-11eb-9ada-42986998cf79.png)
+![Project_Structure](https://github.com/natkhosh/Intelligent_irrigation_system/assets/56446265/0e74fea8-e622-46a5-9a66-de234d948911)
 
 Изучив требования к подобным системам, я составила Техническое задание. Основными функциональными требованиями являются:
 -	получение снимка от камеры, движущейся по складским позициям;
