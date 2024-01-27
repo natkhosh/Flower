@@ -1,33 +1,32 @@
 # Intelligent_irrigation_system
 _**Python Diploma Project**_
 
-Данный прект посвящен созданию прототипа модуля управления интеллектуальной системы капельного полива.
-В проекте реализовала  front-end и back-end:
-- для реализации front-end использовала фреймворк Django
-- back-end реализация  состоящая из захвата изображения через Onvif протокол с камеры,  классификация на основе предобученной сверточной нейронной сети ResNet-18, управление поливом через modbus протокол. База данных используется SQlite.
+This project is dedicated to creating a prototype of a control module for an intelligent drip irrigation system. In the project, both the front-end and back-end were implemented:
+- The front-end implementation utilized the Django framework.
+- The back-end implementation consists of capturing images via the Onvif protocol from a camera, classification based on a pre-trained convolutional neural network ResNet-18, and irrigation control via the Modbus protocol. The database used is SQLite.
 
-Работу разделила на следующие подзадачи:
-1.	разработка структуры базы данных
-2.	разработка модуля обработки, состоящего из подмодулей
-3.	разработка веб-интерфейса пользователя
-4.	проведение тестирования и анализ проделанной работы
+The work is divided into the following subtasks:
+1.	Development of the database structure.
+2.	Development of the processing module, consisting of submodules.
+3.	Development of the user web interface.
+4.	Conducting testing and analysis of the work done.
 
-В объем работы не входит: 
--	реализация системы получения изображений/управление камерой;
--	реализация системы полива
+The scope of work does not include:
+- Implementation of the image acquisition system/camera control.
+- Implementation of the irrigation system.
 
-Взаимодействие с этими системами осуществляется через соответствующие API.
+Interaction with these systems is carried out through respective APIs.
 
 ![Project_Structure](https://github.com/natkhosh/Intelligent_irrigation_system/assets/56446265/0e74fea8-e622-46a5-9a66-de234d948911)
 
-Изучив требования к подобным системам, я составила Техническое задание. Основными функциональными требованиями являются:
--	получение снимка от камеры, движущейся по складским позициям;
--	обработка снимка и определение тип растения; 
--	получение из БД информации для полива согласно определенному классу растения;
--	выдача команды на полив; 
--	сбор статистики для аналитики; 
--	Web-интерфейс для настройки параметров полива и отображения статистики.
+Having reviewed the requirements for such systems, I have drafted the Technical Specification. The main functional requirements include:
+- Capturing images from a camera moving through warehouse positions.
+- Processing the image and determining the plant type.
+- Retrieving information from the database for irrigation according to the determined plant class.
+- Issuing commands for irrigation.
+- Collecting statistics for analytics.
+- Web interface for configuring irrigation parameters and displaying statistics.
 
-На диаграмме представлена последовательность взаимодействия основных модулей.
+The diagram illustrates the sequence of interaction between the main modules.
 
-![Сценарии_взаимодействия_3](https://user-images.githubusercontent.com/56446265/117704864-04fffb00-b1d4-11eb-9163-b1ad010f0b5b.jpg)
+![Interaction_scenarios](https://github.com/natkhosh/Intelligent_irrigation_system/assets/56446265/39c07ea2-9001-46a8-8d56-47a625a3f460)
